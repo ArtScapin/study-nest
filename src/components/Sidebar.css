@@ -1,0 +1,33 @@
+#sidebar {
+  background-color: #101511;
+  height: 100vh;
+  width: 70px;
+  position: fixed;
+  overflow: hidden;
+  text-align: center;
+  outline: 2px solid #242925;
+}
+
+#sidebar > #logo {
+  width: 50px;
+  margin: 15px auto 10px auto;
+}
+
+#sidebar > .separator {
+  height: 2px;
+  width: 80%;
+  background-color: #242925;
+  margin: 0 auto;
+}
+
+#sidebar > div {
+  margin: 15px;
+}
+
+#sidebar > div:last-child {
+  position: absolute;
+  margin: 0;
+  left: 35px;
+  transform: translateX(-50%);
+  bottom: 10px;
+}
