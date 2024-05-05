@@ -1,12 +1,7 @@
 #content {
   width: 100%;
   margin-left: 70px;
-}
-
-#header {
-  background-color: blue;
-  width: 100%;
-  height: fit-content;
+  overflow: hidden;
 }
 
 #main {

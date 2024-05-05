@@ -1,3 +1,4 @@
+import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import './style.css';
 import 'boxicons';
@@ -8,7 +9,7 @@ function Home() {
     <>
       <Sidebar></Sidebar>
       <div id='content'>
-        <div id='header'>Header</div>
+        <Header></Header>
         <div id='main'>Main</div>
       </div>
     </>
