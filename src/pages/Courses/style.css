@@ -1,0 +1,14 @@
+#content {
+  width: 100%;
+  margin-left: 70px;
+  overflow-x: hidden;
+}
+
+#main {
+  background-color: #101511;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
+}
