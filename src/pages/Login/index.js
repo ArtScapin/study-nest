@@ -3,12 +3,12 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom'
 
-function App() {
+export default function Login() {
  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,20 +19,36 @@ function App() {
           headers: { 'Content-Type': 'application/json' }
         }            
       );
-      await localStorage.setItem('user', data);
-      console.log(data);
-      // setUser(localStorage.getItem('user'))
-
+      localStorage.setItem('user_data', data);
     } catch (error) {
       setError('Usuário ou senha inválidos');
     }
   };
 
+  const getUser = async () => {
+    const local = localStorage.getItem('user_data');
+    if(local?.token && local?.type){
+      const { data } = await axios.get('http://localhost:3333/session',
+        {
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `${local.type} ${local.token}`
+          }
+        }            
+      );
+      setUser(data)
+    } else {
+      setUser(null)
+    } 
+  };
+
+  
   return (
     <>
       {
         !user ? 
-        <div className="login-form-wrap">
+        <div className="login-container">
+          <img id='logo' src="./assets/logo.png" alt="logo" />
           <h2>Login</h2>
           <form className='login-form'>
           <input type="email" 
@@ -54,10 +70,8 @@ function App() {
           <p>{error}</p>
         </div>
         :
-        <Navigate to='/home'/>
+        <Navigate to='/course'/>
       }
     </>
   );
 }
-
-export default App;
