@@ -8,7 +8,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [user, setUser] = useState();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,59 +18,36 @@ export default function Login() {
           headers: { 'Content-Type': 'application/json' }
         }            
       );
-      localStorage.setItem('user_data', data);
+
+      localStorage.setItem('authToken', data.token);
+      <Navigate to='/'></Navigate>
     } catch (error) {
       setError('Usuário ou senha inválidos');
     }
   };
 
-  const getUser = async () => {
-    const local = localStorage.getItem('user_data');
-    if(local?.token && local?.type){
-      const { data } = await axios.get('http://localhost:3333/session',
-        {
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `${local.type} ${local.token}`
-          }
-        }            
-      );
-      setUser(data)
-    } else {
-      setUser(null)
-    } 
-  };
-
-  
   return (
-    <>
-      {
-        !user ? 
-        <div className="login-container">
-          <img id='logo' src="./assets/logo.png" alt="logo" />
-          <h2>Login</h2>
-          <form className='login-form'>
-          <input type="email" 
-            name="email" 
-            placeholder="Email" 
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input type="password" 
-            name="password" 
-            placeholder="Password" 
-            required
-            onChange={(e) => setPassword(e.target.value)} 
-          />
-          <button type="submit" 
-            className='btn-login'
-            onClick={(e) => handleLogin(e)}>Login</button>
-          </form>
-          <p>{error}</p>
-        </div>
-        :
-        <Navigate to='/course'/>
-      }
-    </>
+    <div className="login-container">
+      <img id='logo' src="./assets/logo.png" alt="logo" />
+      <h2>Login</h2>
+      <form className='login-form'>
+      <input type="email" 
+        name="email" 
+        placeholder="Email" 
+        required
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input type="password" 
+        name="password" 
+        placeholder="Password" 
+        required
+        onChange={(e) => setPassword(e.target.value)} 
+      />
+      <button type="submit" 
+        className='btn-login'
+        onClick={(e) => handleLogin(e)}>Login</button>
+      </form>
+      <p>{error}</p>
+    </div>
   );
 }
