@@ -8,6 +8,7 @@ import {
 import './global-style.css';
 import Login from './pages/Login';
 import Courses from './pages/Courses';
+import Settings from './pages/Settings';
 import axios from 'axios';
 
 const userData = {
@@ -45,6 +46,10 @@ const router = await isAuthenticated() ? createBrowserRouter([
   {
     path: "/courses",
     element: <Courses userData={userData.getData} />,
+  },
+  {
+    path: "/settings",
+    element: <Settings userData={userData.getData} />,
   },
   {
     path: "*",
