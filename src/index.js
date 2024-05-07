@@ -8,15 +8,52 @@ import {
 import './global-style.css';
 import Login from './pages/Login';
 import Courses from './pages/Courses';
+import axios from 'axios';
 
-const router = createBrowserRouter([
+const userData = {
+  data: null,
+  setData: (data) => {
+    userData.data = data  
+  },
+  getData: () => {
+    return userData.data
+  }
+}
+
+const isAuthenticated = async () => {
+  const token = localStorage.getItem('authToken');
+    if(token){
+      try {
+        const { data } = await axios.get('http://localhost:3333/session',
+          {
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }
+          }            
+        );
+        userData.setData(data)
+        return true
+      } catch (error) {
+        return false
+      }
+    }
+  return false
+}
+
+const router = await isAuthenticated() ? createBrowserRouter([
+  {
+    path: "/courses",
+    element: <Courses userData={userData.getData} />,
+  },
+  {
+    path: "*",
+    element: <Navigate to='/courses' replace />,
+  }
+]): createBrowserRouter([
   {
     path: "/",
     element: <Login />,
-  },
-  {
-    path: "/courses",
-    element: <Courses />,
   },
   {
     path: "*",
