@@ -1,7 +1,6 @@
 import './style.css';
 import { useState } from 'react';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom'
 
 export default function Login() {
  
@@ -20,7 +19,7 @@ export default function Login() {
       );
 
       localStorage.setItem('authToken', data.token);
-      <Navigate to='/'></Navigate>
+      window.location.reload();
     } catch (error) {
       setError('Usuário ou senha inválidos');
     }
