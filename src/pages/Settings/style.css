@@ -1,1 +1,127 @@
+#new-course {
+  height: fit-content;
+  width: fit-content;
+  min-width: fit-content;
+  text-align: center;
+  border-radius: 20px;
+  margin: 10px auto 0 auto;
+  background-color: aliceblue;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #00351b;
+  color: white;
+}
 
+#new-course:hover {
+  background: #002915;
+}
+
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  background-color: #001a0d4d;
+  display: none;
+}
+
+.popup-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #101511;
+  border-radius: 20px;
+  color: white;
+  padding: 20px 10px;
+  width: fit-content;
+  height: fit-content;
+  min-width: 350px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.popup-form > .title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.popup-form > input {
+  width: 80%;
+  height: 40px;
+  padding: 0 1rem;
+  border: 2px solid #636864;
+  border-radius: 8px;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  transition: 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.popup-form > input::placeholder {
+  color: #636864;
+}
+
+.popup-form > input:focus,
+.popup-form > input:hover {
+  outline: none;
+  border-color: #006333;
+  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+.popup-form > button,
+.popup-form > .botao-upload > div {
+  width: 30%;
+  height: 30px;
+  min-width: fit-content;
+  padding: 0 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #006333;
+  color: white;
+}
+
+.popup-form > button:hover,
+.popup-form > .botao-upload > div:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+  background-color: #00351b;
+}
+
+.popup-form > .botao-upload > div {
+  margin-bottom: auto;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 1rem;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.popup-form > .image {
+  margin: 0 auto;
+  width: 100%; /* Ou a largura desejada */
+  height: 0;
+  padding-bottom: 56.25%; /* Proporção de 16:9 */
+  position: relative;
+  overflow: hidden; /* Garante que a imagem não ultrapasse as bordas */
+  border-radius: 20px;
+  border: 2px solid #636864;
+  margin-bottom: 20px;
+}
+
+.popup-form > .image > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Mantém a imagem dentro do contêiner */
+  background-color: black; /* Cor de fundo para as bordas pretas */
+}

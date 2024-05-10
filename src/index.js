@@ -52,6 +52,10 @@ const router = await isAuthenticated() ? createBrowserRouter([
     element: <Settings userData={userData.getData} />,
   },
   {
+    path: "/settings/course/:id",
+    element: <Settings userData={userData.getData} />,
+  },
+  {
     path: "*",
     element: <Navigate to='/courses' replace />,
   }
