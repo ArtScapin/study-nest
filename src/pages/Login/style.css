@@ -58,12 +58,8 @@ h2 {
   color: #636864;
 }
 
-.login-form > input::placeholder {
-  color: #636864;
-}
-
 .login-form > input:focus,
-input:hover {
+.login-form > input:hover {
   outline: none;
   border-color: #006333;
   box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
