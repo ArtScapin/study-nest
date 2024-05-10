@@ -14,7 +14,7 @@ export default function Sidebar () {
 
   return (
     <div id='sidebar'>
-      <img id='logo' src="./assets/logo.png" alt="logo" />
+      <img id='logo' src="/assets/logo.png" alt="logo" />
       <div className='separator'></div>
       <div className='item' onClick={() => handleRedirect('/home')}>
         <box-icon name='home-circle' color='#636864' size='28px'></box-icon>
