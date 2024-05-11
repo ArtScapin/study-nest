@@ -27,7 +27,7 @@ export default function Settings() {
 
   const loadMyCourses = () => {
     const token = localStorage.getItem('authToken');
-    if(token)
+    if(token && isLoading)
       axios.get('http://localhost:3333/course/my',
         {
           headers: { 
@@ -78,22 +78,23 @@ export default function Settings() {
         }            
       )
       .then(() => {
+        setLoading(true)
         loadMyCourses();
-        handlePopup(null)
+        handlePopup(null);
         for (const input of document.getElementsByTagName('input')) {
-          input.value = ''
+          input.value = '';
         }
-        setName(null)
-        setDescription(null)
-        setImagePreview(null)
-        setThumbnail(null)
+        setName(null);
+        setDescription(null);
+        setImagePreview(null);
+        setThumbnail(null);
       })
       .catch((error)=> console.log(error))
     }
   };
 
   useEffect(() => {
-      loadMyCourses()
+    loadMyCourses();
   });
 
   return (

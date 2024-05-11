@@ -17,7 +17,13 @@
   height: 175px;
   border-radius: 20px;
   font-size: 65px;
-  background: #006333;
+  background: black;
+  text-align: center;
+}
+
+.course > .image > img {
+  max-width: 262px;
+  max-height: 175px;
 }
 
 .course > .title,
