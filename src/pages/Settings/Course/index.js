@@ -1,0 +1,296 @@
+import Header from '../../../components/Header';
+import Sidebar from '../../../components/Sidebar';
+import './style.css';
+import { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import Table from '../../../components/Table';
+import VideoPlayer from '../../../components/VideoPlayer';
+
+export default function SettingsCourse() {
+  const [course, setCourse] = useState(null);
+  const [isLoading, setLoading] = useState(true); 
+  const {id: courseId} = useParams()
+  const fileInputRef = useRef();
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [lessonName, setLessonName] = useState(null);
+  const [lessonDescription, setLessonDescription] = useState(null);
+  const [lessonVideo, setLessonVideo] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState(null);
+  
+  const loadMyCourse = () => {
+    const token = localStorage.getItem('authToken');
+    if(token && isLoading)
+      axios.get(`http://localhost:3333/course/${courseId}`,
+        {
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }            
+      )
+      .then(({data}) => {
+        setLoading(false);
+        setName(data.name);
+        setDescription(data.description);
+        setPreview(null);
+        const course = data
+        course.categories = course.categories.map(({id, label}) => {
+          return {
+            id,
+            name:label
+          }
+        })
+        setCourse(course);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar dados da API:', error);
+      });
+  };
+
+  const loadCategories = () => {
+    const token = localStorage.getItem('authToken');
+    if(token && !categories)
+      axios.get(`http://localhost:3333/category`,
+        {
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }            
+      )
+      .then(({data}) => {
+        setCategories(data)
+      })
+      .catch(error => {
+        console.error('Erro ao buscar dados da API:', error);
+      });
+  };
+
+  const handleImage = (e) => {
+    const file = e.target.files[0]; 
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+      setThumbnail(file);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpdateCourse = () => {
+    const token = localStorage.getItem('authToken');
+    if(token && name && description){
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('description', description);
+      if(thumbnail)
+        formData.append('thumbnail', thumbnail);
+
+      axios.put(`http://localhost:3333/course/${courseId}`,
+        formData,
+        {
+          headers: { 
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}` 
+          }
+        }            
+      )
+      .then(() => {
+        setLoading(true);
+        loadMyCourse();
+      })
+      .catch((error)=> console.log(error))
+    };
+  };
+
+  const handlePopup = (e) => {
+    const popups = document.getElementsByClassName('popup')
+    for (const popup of popups) {
+      if (!e) {
+        popup.style.display = 'none'
+      } else if(e.target.className === 'popup' || popup.style.display !== 'block'){
+        popup.style.display = popup.style.display === 'block' ? 'none' : 'block'
+      }
+    }
+  };
+
+  const handleLessonVideo = (e) => {
+    const value = e.target.value.split('v=')
+    setLessonVideo(value[1])
+  };
+
+  const handleCreateLesson = () => {
+    const token = localStorage.getItem('authToken');
+    console.log(token);
+    if(token && lessonName && lessonDescription && lessonVideo){
+      const formData = new FormData();
+      formData.append('name', lessonName);
+      formData.append('description', lessonDescription);
+      formData.append('video', lessonVideo);
+
+      axios.post(`http://localhost:3333/lesson/${courseId}`,
+        formData,
+        {
+          headers: { 
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}` 
+          }
+        }            
+      )
+      .then(() => {
+        setLoading(true);
+        loadMyCourse();
+        handlePopup(null);
+        for (const input of document.getElementsByClassName('input-form-lesson')) {
+          input.value = '';
+        }
+        setLessonName(null);
+        setLessonDescription(null);
+        setLessonVideo(null);
+      })
+      .catch((error)=> console.log(error))
+    }
+  };
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleAddCategory = (categoryId) => {
+    const token = localStorage.getItem('authToken');
+    if(token)
+      axios.post(`http://localhost:3333/category/link/${categoryId}/${courseId}`,
+        {
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }            
+      )
+      .then(() => {
+        setLoading(true);
+        loadMyCourse();
+      })
+      .catch(error => {
+        console.error('Erro ao buscar dados da API:', error);
+      });
+  }
+
+  useEffect(() => {
+    loadMyCourse();
+    loadCategories();
+  });
+
+  return (
+    <>
+      <Sidebar></Sidebar>
+      <div id='content'>
+        <Header message='Settings > Course' search={false}></Header>
+        <div id='course-settings'>
+          {
+            isLoading ? 
+              <div>Loading</div> :
+              !course ?
+                <div>Fail</div> :
+                <>
+                  <div className='update-course'>
+                    <div className='image'>
+                      <img 
+                        src={preview || `http://localhost:3333/thumbnail/${course.thumbnail}`} 
+                        alt="Imagem Selecionada" 
+                        style={{ maxWidth: '100%' }} 
+                      /> 
+                    </div>
+                    <div className='infos'>
+                      <label>Name:</label>
+                      <br></br>
+                      <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
+                      <br></br>
+                      <label>Description:</label>
+                      <br></br>
+                      <input type='text' value={description} onChange={(e) => setDescription(e.target.value)} />
+                      <br></br>
+                      <label className="botao-upload" htmlFor="fileInput">
+                        <div>New Thumbnail</div>
+                      </label>
+                      <input 
+                        type="file" 
+                        id="fileInput" 
+                        accept="image/*" 
+                        ref={fileInputRef}
+                        style={{ display: 'none' }} onChange={handleImage} />
+                      <div className='botao-save' onClick={handleUpdateCourse}>Save</div>
+                    </div>
+                  </div>
+                  <Table
+                    title='Categories' 
+                    content={course.categories} 
+                  />
+                  <div className="dropdown">
+                    <div className="dropdown-toggle" onClick={toggleMenu}>
+                      Add Category
+                    </div>
+                    {(isOpen && categories) && (
+                      <div className="dropdown-menu">
+                        {
+                          categories.map((category) => 
+                            <div className="dropdown-item" key={category.id} onClick={() => handleAddCategory(category.id)}>{category.label}</div>)
+                        }
+                      </div>
+                    )}
+                  </div>
+                  <br />
+                  <Table
+                    title='Lessons' 
+                    content={course.lessons} 
+                    baseURL='/settings/lesson' 
+                  />
+                  <div id='new-lesson' onClick={(e) => handlePopup(e)}>Add New Lesson</div>
+                  <br />
+
+                  <div className='popup' onClick={(e) => handlePopup(e)}>
+                    <div className='popup-form'>
+                      <div className='title'>New Lesson</div>
+                      <input type="text" 
+                        className='input-form-lesson'
+                        name="name" 
+                        placeholder="Name" 
+                        required
+                        onChange={(e) => setLessonName(e.target.value)}
+                      />
+                      <input type="text" 
+                        className='input-form-lesson'
+                        name="description" 
+                        placeholder="Description" 
+                        required
+                        onChange={(e) => setLessonDescription(e.target.value)}
+                      />
+                      <input type="text" 
+                        className='input-form-lesson'
+                        name="video" 
+                        placeholder="Video URL" 
+                        required
+                        onChange={handleLessonVideo}
+                      />
+                      {lessonVideo && (
+                        <VideoPlayer url={lessonVideo}/>
+                      )}
+                      <br />
+                      <button type="submit" 
+                        onClick={handleCreateLesson}>Create</button>
+                    </div>
+                  </div>
+                </>
+          }
+        </div>
+      </div>
+    </>
+  );
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import './Table.css'; // Importa os estilos CSS
 import 'boxicons'
 
-export default function Table ({title, content, isLoading, baseURL}) {
+export default function Table ({title, content, baseURL = null}) {
   const handleRedirect = (route) => {
     window.location.href = `${baseURL}/${route}`;
   };
@@ -12,7 +12,7 @@ export default function Table ({title, content, isLoading, baseURL}) {
       <div>{title}</div>
       {
         content.map(({id, name}) => {
-          return <div key={id} onClick={() => handleRedirect(id)}>{name}</div>
+          return <div key={id} onClick={baseURL ? () => handleRedirect(id) : () => {}}>{name}</div>
         })
       }
     </div>

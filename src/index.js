@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Courses from './pages/Courses';
 import Settings from './pages/Settings';
 import axios from 'axios';
+import SettingsCourse from './pages/Settings/Course';
 
 const userData = {
   data: null,
@@ -53,7 +54,7 @@ const router = await isAuthenticated() ? createBrowserRouter([
   },
   {
     path: "/settings/course/:id",
-    element: <Settings userData={userData.getData} />,
+    element: <SettingsCourse userData={userData.getData} />,
   },
   {
     path: "*",

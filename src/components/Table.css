@@ -6,6 +6,7 @@
   overflow: hidden;
   border-radius: 20px;
   margin: 0 auto;
+  display: block;
 }
 
 .table > div {
