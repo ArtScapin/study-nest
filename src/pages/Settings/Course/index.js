@@ -54,7 +54,7 @@ export default function SettingsCourse() {
 
   const loadCategories = () => {
     const token = localStorage.getItem('authToken');
-    if(token && !categories)
+    if(token && !categories && course)
       axios.get(`http://localhost:3333/category`,
         {
           headers: { 
@@ -64,7 +64,7 @@ export default function SettingsCourse() {
         }            
       )
       .then(({data}) => {
-        setCategories(data)
+        setCategories(data.filter((category) => !course.categories.some((cc) => cc.id === category.id)));
       })
       .catch(error => {
         console.error('Erro ao buscar dados da API:', error);
@@ -167,6 +167,7 @@ export default function SettingsCourse() {
     const token = localStorage.getItem('authToken');
     if(token)
       axios.post(`http://localhost:3333/category/link/${categoryId}/${courseId}`,
+        {},
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -177,6 +178,8 @@ export default function SettingsCourse() {
       .then(() => {
         setLoading(true);
         loadMyCourse();
+        setIsOpen(false);
+        setCategories(categories.filter(({id}) => id !== categoryId));
       })
       .catch(error => {
         console.error('Erro ao buscar dados da API:', error);
@@ -233,19 +236,22 @@ export default function SettingsCourse() {
                     title='Categories' 
                     content={course.categories} 
                   />
-                  <div className="dropdown">
-                    <div className="dropdown-toggle" onClick={toggleMenu}>
-                      Add Category
-                    </div>
-                    {(isOpen && categories) && (
-                      <div className="dropdown-menu">
-                        {
-                          categories.map((category) => 
-                            <div className="dropdown-item" key={category.id} onClick={() => handleAddCategory(category.id)}>{category.label}</div>)
-                        }
+                  {
+                    (categories?.length > 0) &&
+                    <div className="dropdown">
+                      <div className="dropdown-toggle" onClick={toggleMenu}>
+                        Add Category
                       </div>
-                    )}
-                  </div>
+                      {isOpen && (
+                        <div className="dropdown-menu">
+                          {
+                            categories.map((category) => 
+                              <div className="dropdown-item" key={category.id} onClick={() => handleAddCategory(category.id)}>{category.label}</div>)
+                          }
+                        </div>
+                      )}
+                    </div>
+                  }
                   <br />
                   <Table
                     title='Lessons' 
