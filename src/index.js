@@ -11,22 +11,13 @@ import Courses from './pages/Courses';
 import Settings from './pages/Settings';
 import axios from 'axios';
 import SettingsCourse from './pages/Settings/Course';
-
-const userData = {
-  data: null,
-  setData: (data) => {
-    userData.data = data  
-  },
-  getData: () => {
-    return userData.data
-  }
-}
+import SettingsLesson from './pages/Settings/Lesson';
 
 const isAuthenticated = async () => {
   const token = localStorage.getItem('authToken');
     if(token){
       try {
-        const { data } = await axios.get('http://localhost:3333/session',
+        await axios.get('http://localhost:3333/session',
           {
             headers: { 
               'Content-Type': 'application/json',
@@ -34,7 +25,6 @@ const isAuthenticated = async () => {
             }
           }            
         );
-        userData.setData(data)
         return true
       } catch (error) {
         return false
@@ -46,15 +36,19 @@ const isAuthenticated = async () => {
 const router = await isAuthenticated() ? createBrowserRouter([
   {
     path: "/courses",
-    element: <Courses userData={userData.getData} />,
+    element: <Courses />,
   },
   {
     path: "/settings",
-    element: <Settings userData={userData.getData} />,
+    element: <Settings />,
   },
   {
-    path: "/settings/course/:id",
-    element: <SettingsCourse userData={userData.getData} />,
+    path: "/settings/course/:courseId",
+    element: <SettingsCourse />,
+  },
+  {
+    path: "/settings/lesson/:courseId/:lessonId",
+    element: <SettingsLesson />,
   },
   {
     path: "*",

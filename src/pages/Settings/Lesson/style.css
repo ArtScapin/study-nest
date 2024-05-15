@@ -1,0 +1,117 @@
+#lesson-settings > .update-lesson {
+  background-color: #181d19;
+  height: fit-content;
+  width: 70%;
+  min-width: fit-content;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 0 auto 20px auto;
+  display: flex;
+  padding: 10px;
+}
+
+#lesson-settings > .update-lesson > .video {
+  width: 50%; /* Ou a largura desejada */
+  height: 0;
+  padding-bottom: 28%; /* Proporção de 16:9 */
+  position: relative;
+  overflow: hidden; /* Garante que a imagem não ultrapasse as bordas */
+  border-radius: 20px;
+  border: 2px solid #636864;
+}
+
+#lesson-settings > .update-lesson > .video > .yt-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Mantém a imagem dentro do contêiner */
+  background-color: black; /* Cor de fundo para as bordas pretas */
+}
+
+#lesson-settings > .update-lesson > .video > .yt-player iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+#lesson-settings > .update-lesson > .infos {
+  overflow: hidden;
+  text-align: left;
+  width: 50%;
+  margin-left: 20px;
+}
+
+#lesson-settings > .update-lesson > .infos > input {
+  width: 90%;
+  height: 30px;
+  border: 2px solid #636864;
+  border-radius: 8px;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  transition: 0.3s ease;
+  margin-bottom: 20px;
+}
+
+#lesson-settings > .update-lesson > .infos > input:focus,
+#lesson-settings > .update-lesson > .infos > input:hover {
+  outline: none;
+  border-color: #006333;
+  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+#lesson-settings > .update-lesson > .infos > label {
+  width: 90%;
+  font-size: 14px;
+  font-weight: bold;
+  color: #04f781;
+}
+
+#lesson-settings > .update-lesson > .infos > .botao-save {
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 1rem;
+  border-radius: 8px;
+  border: none;
+  margin: 0 auto;
+  background-color: #006333;
+  color: white;
+}
+
+#lesson-settings > .update-lesson > .infos > .botao-save:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+  background-color: #00351b;
+}
+
+#lesson-settings > .update-lesson > .infos > .botao-save {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+  position: relative;
+}
+
+#lesson-settings > .botao-upload > div:hover {
+  background: #002915;
+}
+
+#lesson-settings > .botao-upload > div {
+  height: fit-content;
+  width: fit-content;
+  min-width: fit-content;
+  text-align: center;
+  border-radius: 20px;
+  margin: 10px auto 0 auto;
+  background-color: aliceblue;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #00351b;
+  color: white;
+}

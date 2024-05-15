@@ -10,7 +10,7 @@ import VideoPlayer from '../../../components/VideoPlayer';
 export default function SettingsCourse() {
   const [course, setCourse] = useState(null);
   const [isLoading, setLoading] = useState(true); 
-  const {id: courseId} = useParams()
+  const {courseId} = useParams()
   const fileInputRef = useRef();
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
@@ -128,7 +128,7 @@ export default function SettingsCourse() {
 
   const handleCreateLesson = () => {
     const token = localStorage.getItem('authToken');
-    console.log(token);
+    
     if(token && lessonName && lessonDescription && lessonVideo){
       const formData = new FormData();
       formData.append('name', lessonName);
@@ -256,7 +256,7 @@ export default function SettingsCourse() {
                   <Table
                     title='Lessons' 
                     content={course.lessons} 
-                    baseURL='/settings/lesson' 
+                    baseURL={`/settings/lesson/${courseId}`}
                   />
                   <div id='new-lesson' onClick={(e) => handlePopup(e)}>Add New Lesson</div>
                   <br />
