@@ -65,8 +65,8 @@ export default function SettingsLesson() {
   };
 
   const handleVideo = (e) => {
-    const value = e.target.value.split('v=')
-    setVideo(value[1])
+    const value = e.target.value.split('v=')[1].split('&')[0]
+    setVideo(value)
   };
 
   const handleCreateContent = (e) => {
@@ -113,7 +113,7 @@ export default function SettingsLesson() {
                   <div className='update-lesson'>
                     <div className='video'>
                       {video &&
-                        [video].map((url)=> <VideoPlayer url={url} />)
+                        [video].map((url)=> <VideoPlayer key={lesson.id} url={url} />)
                       }
                     </div>
                     <div className='infos'>
@@ -134,7 +134,8 @@ export default function SettingsLesson() {
                   </div>
                   <Table
                     title='Contents' 
-                    content={lesson.contents}  
+                    content={lesson.contents}
+                    deleteURL={`/content`}
                   />
                   <label className="botao-upload" htmlFor="fileInput">
                     <div>Add New Content</div>

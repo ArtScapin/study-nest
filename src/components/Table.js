@@ -1,10 +1,31 @@
 import React from 'react';
 import './Table.css'; // Importa os estilos CSS
-import 'boxicons'
+import { BiTrash } from "react-icons/bi";
+import axios from 'axios';
 
-export default function Table ({title, content, baseURL = null}) {
-  const handleRedirect = (route) => {
-    window.location.href = `${baseURL}/${route}`;
+export default function Table ({title, content, deleteURL, baseURL = null}) {
+  const handleRedirect = (e, route) => {
+    if(e.target.tagName === 'DIV' && baseURL)
+      window.location.href = `${baseURL}/${route}`;
+  };
+
+  const handleDelete = (id) => {
+    const token = localStorage.getItem('authToken');
+    if(token){
+
+      axios.delete(`http://localhost:3333${deleteURL}/${id}`,
+        {
+          headers: { 
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}` 
+          }
+        }            
+      )
+      .then(() => {
+        window.location.reload()
+      })
+      .catch((error)=> console.log(error))
+    }
   };
 
   return (
@@ -12,7 +33,13 @@ export default function Table ({title, content, baseURL = null}) {
       <div>{title}</div>
       {
         content.map(({id, name}) => {
-          return <div key={id} onClick={baseURL ? () => handleRedirect(id) : () => {}}>{name}</div>
+          return <div 
+            key={id} 
+            onClick={(e) => handleRedirect(e, id)}
+            className={!baseURL ? 'cursor-default' : ''}>
+              {name}
+              <BiTrash className='icon' onClick={() => handleDelete(id)} />
+            </div>
         })
       }
     </div>

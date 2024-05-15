@@ -38,3 +38,23 @@
   cursor: default;
   background-color: #181d19;
 }
+
+.table .icon {
+  position: absolute;
+  right: 15%;
+  transform: translate(10px, -10px);
+  color: #636864;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.table .icon:hover {
+  color: #00351b;
+  background-color: #636864;
+  cursor: pointer;
+}
+
+.cursor-default,
+.cursor-default:hover {
+  cursor: default !important;
+}

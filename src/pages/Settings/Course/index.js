@@ -122,8 +122,8 @@ export default function SettingsCourse() {
   };
 
   const handleLessonVideo = (e) => {
-    const value = e.target.value.split('v=')
-    setLessonVideo(value[1])
+    const value = e.target.value.split('v=')[1].split('&')[0]
+    setLessonVideo(value)
   };
 
   const handleCreateLesson = () => {
@@ -166,7 +166,7 @@ export default function SettingsCourse() {
   const handleAddCategory = (categoryId) => {
     const token = localStorage.getItem('authToken');
     if(token)
-      axios.post(`http://localhost:3333/category/link/${categoryId}/${courseId}`,
+      axios.post(`http://localhost:3333/category/link/${courseId}/${categoryId}`,
         {},
         {
           headers: { 
@@ -235,6 +235,7 @@ export default function SettingsCourse() {
                   <Table
                     title='Categories' 
                     content={course.categories} 
+                    deleteURL={`/category/link/${courseId}`}
                   />
                   {
                     (categories?.length > 0) &&
@@ -257,6 +258,7 @@ export default function SettingsCourse() {
                     title='Lessons' 
                     content={course.lessons} 
                     baseURL={`/settings/lesson/${courseId}`}
+                    deleteURL={`/lesson/${courseId}`}
                   />
                   <div id='new-lesson' onClick={(e) => handlePopup(e)}>Add New Lesson</div>
                   <br />

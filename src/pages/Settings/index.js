@@ -112,7 +112,9 @@ export default function Settings() {
                   <Table 
                     title='My Courses' 
                     content={courses} 
-                    baseURL='/settings/course'>
+                    baseURL='/settings/course'
+                    deleteURL='/course'
+                    >
                   </Table>
                   <div id='new-course' onClick={(e) => handlePopup(e)}>Add New Course</div>
                 </>
