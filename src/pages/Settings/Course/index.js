@@ -122,7 +122,7 @@ export default function SettingsCourse() {
   };
 
   const handleLessonVideo = (e) => {
-    const value = e.target.value.split('v=')[1].split('&')[0]
+    const value = e.target.value?.split('v=')[1]?.split('&')[0]
     setLessonVideo(value)
   };
 
@@ -195,7 +195,7 @@ export default function SettingsCourse() {
     <>
       <Sidebar></Sidebar>
       <div id='content'>
-        <Header message='Settings > Course' search={false}></Header>
+        <Header message='Settings > Course' search={false} link='/settings'></Header>
         <div id='course-settings'>
           {
             isLoading ? 

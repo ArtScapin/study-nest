@@ -1,10 +1,20 @@
 import React from 'react';
 import './Header.css';
 
-export default function Header({message, search = true}) {
+export default function Header({message, search = true, link = null}) {
+  const handleClick = () => {
+    if (link)
+      window.location.href = link;
+  }
+
   return (
     <div id='header'>
-      <span id='message'>{message}</span>
+      <span 
+        id='message' 
+        onClick={handleClick}
+        className={link ? 'cursor-pointer' : ''}>
+          {message}
+      </span>
       {
         search && 
         <div id="search">
