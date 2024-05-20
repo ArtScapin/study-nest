@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Course from '../../components/Course';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import './style.css';
 import 'boxicons';
+import studyNestApi from '../../services/apiStudyNest';
 
 export default function Courses() {
   const [courses, setCourses] = useState(null);
@@ -13,7 +13,7 @@ export default function Courses() {
   const loadCourses = () => {
     const token = localStorage.getItem('authToken');
     if(token && isLoading)
-      axios.get('http://localhost:3333/course',
+      studyNestApi.get('course',
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -43,8 +43,7 @@ export default function Courses() {
           {
             isLoading ? 
               <div>Loading</div> :
-              courses.map((course) => <Course course={course}></Course>)
-              
+              courses.map((course) => <Course key={course.id} course={course}></Course>)
           }
         </div>
       </div>

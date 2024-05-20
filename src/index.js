@@ -9,7 +9,7 @@ import './global-style.css';
 import Login from './pages/Login';
 import Courses from './pages/Courses';
 import Settings from './pages/Settings';
-import axios from 'axios';
+import studyNestApi from './services/apiStudyNest';
 import SettingsCourse from './pages/Settings/Course';
 import SettingsLesson from './pages/Settings/Lesson';
 
@@ -17,14 +17,13 @@ const isAuthenticated = async () => {
   const token = localStorage.getItem('authToken');
     if(token){
       try {
-        await axios.get('http://localhost:3333/session',
-          {
-            headers: { 
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            }
-          }            
-        );
+        await studyNestApi.get('session', {
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
         return true
       } catch (error) {
         return false

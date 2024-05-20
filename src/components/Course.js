@@ -7,7 +7,7 @@ export default function Course({course}) {
     const lesson = '??'
     const progress = null
     const creator = course.user.username
-    const image = `http://localhost:3333/thumbnail/${course.thumbnail}`
+    const image = `https://congenial-space-invention-5jqpx47pgjj24vvp-3333.app.github.dev/thumbnail/${course.thumbnail}`
 
     return (
       <div className='course'>

@@ -2,8 +2,8 @@ import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import './style.css';
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import Table from '../../components/Table';
+import studyNestApi from '../../services/apiStudyNest';
 
 export default function Settings() {
   const [courses, setCourses] = useState(null);
@@ -28,7 +28,7 @@ export default function Settings() {
   const loadMyCourses = () => {
     const token = localStorage.getItem('authToken');
     if(token && isLoading)
-      axios.get('http://localhost:3333/course/my',
+      studyNestApi.get('course/my',
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export default function Settings() {
       formData.append('thumbnail', thumbnail);
       formData.append('visibility', true);
 
-      axios.post('http://localhost:3333/course',
+      studyNestApi.post('course',
         formData,
         {
           headers: { 

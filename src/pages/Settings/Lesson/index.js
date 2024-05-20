@@ -2,10 +2,10 @@ import Header from '../../../components/Header';
 import Sidebar from '../../../components/Sidebar';
 import './style.css';
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Table from '../../../components/Table';
 import VideoPlayer from '../../../components/VideoPlayer';
+import studyNestApi from '../../../services/apiStudyNest';
 
 export default function SettingsLesson() {
   const [lesson, setLesson] = useState(null);
@@ -19,7 +19,7 @@ export default function SettingsLesson() {
   const loadMyLesson = () => {
     const token = localStorage.getItem('authToken');
     if(token && isLoading)
-      axios.get(`http://localhost:3333/lesson/${courseId}/${lessonId}`,
+      studyNestApi.get(`lesson/${courseId}/${lessonId}`,
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export default function SettingsLesson() {
       formData.append('description', description);
       formData.append('video', video);
 
-      axios.put(`http://localhost:3333/lesson/${courseId}/${lessonId}`,
+      studyNestApi.put(`lesson/${courseId}/${lessonId}`,
         formData,
         {
           headers: { 
@@ -77,7 +77,7 @@ export default function SettingsLesson() {
       const formData = new FormData();
       formData.append('file', file);
 
-      axios.post(`http://localhost:3333/content/${lessonId}`,
+      studyNestApi.post(`content/${lessonId}`,
         formData,
         {
           headers: { 

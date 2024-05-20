@@ -1,7 +1,7 @@
 import React from 'react';
 import './Table.css'; // Importa os estilos CSS
 import { BiTrash } from "react-icons/bi";
-import axios from 'axios';
+import studyNestApi from '../services/apiStudyNest';
 
 export default function Table ({title, content, deleteURL, baseURL = null}) {
   const handleRedirect = (e, route) => {
@@ -13,7 +13,7 @@ export default function Table ({title, content, deleteURL, baseURL = null}) {
     const token = localStorage.getItem('authToken');
     if(token){
 
-      axios.delete(`http://localhost:3333${deleteURL}/${id}`,
+      studyNestApi.delete(`${deleteURL}/${id}`,
         {
           headers: { 
             'Content-Type': 'multipart/form-data',

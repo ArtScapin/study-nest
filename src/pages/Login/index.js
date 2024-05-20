@@ -1,6 +1,6 @@
 import './style.css';
 import { useState } from 'react';
-import axios from 'axios';
+import studyNestApi from '../../services/apiStudyNest';
 
 export default function Login() {
  
@@ -10,12 +10,14 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const { data } = await axios.post('http://localhost:3333/login',
+    try {      
+      const { data } = await studyNestApi.post('login',
         JSON.stringify({email, password}),
-        {
-          headers: { 'Content-Type': 'application/json' }
-        }            
+        {     
+          headers: { 
+            'Content-Type': 'application/json'
+          }
+        }
       );
 
       localStorage.setItem('authToken', data.token);

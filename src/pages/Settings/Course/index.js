@@ -2,10 +2,10 @@ import Header from '../../../components/Header';
 import Sidebar from '../../../components/Sidebar';
 import './style.css';
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Table from '../../../components/Table';
 import VideoPlayer from '../../../components/VideoPlayer';
+import studyNestApi from '../../../services/apiStudyNest';
 
 export default function SettingsCourse() {
   const [course, setCourse] = useState(null);
@@ -25,7 +25,7 @@ export default function SettingsCourse() {
   const loadMyCourse = () => {
     const token = localStorage.getItem('authToken');
     if(token && isLoading)
-      axios.get(`http://localhost:3333/course/${courseId}`,
+      studyNestApi.get(`course/${courseId}`,
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function SettingsCourse() {
   const loadCategories = () => {
     const token = localStorage.getItem('authToken');
     if(token && !categories && course)
-      axios.get(`http://localhost:3333/category`,
+      studyNestApi.get(`category`,
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export default function SettingsCourse() {
       if(thumbnail)
         formData.append('thumbnail', thumbnail);
 
-      axios.put(`http://localhost:3333/course/${courseId}`,
+      studyNestApi.put(`course/${courseId}`,
         formData,
         {
           headers: { 
@@ -135,7 +135,7 @@ export default function SettingsCourse() {
       formData.append('description', lessonDescription);
       formData.append('video', lessonVideo);
 
-      axios.post(`http://localhost:3333/lesson/${courseId}`,
+      studyNestApi.post(`lesson/${courseId}`,
         formData,
         {
           headers: { 
@@ -166,7 +166,7 @@ export default function SettingsCourse() {
   const handleAddCategory = (categoryId) => {
     const token = localStorage.getItem('authToken');
     if(token)
-      axios.post(`http://localhost:3333/category/link/${courseId}/${categoryId}`,
+      studyNestApi.post(`category/link/${courseId}/${categoryId}`,
         {},
         {
           headers: { 
@@ -206,7 +206,7 @@ export default function SettingsCourse() {
                   <div className='update-course'>
                     <div className='image'>
                       <img 
-                        src={preview || `http://localhost:3333/thumbnail/${course.thumbnail}`} 
+                        src={preview || `https://congenial-space-invention-5jqpx47pgjj24vvp-3333.app.github.dev/thumbnail/${course.thumbnail}`} 
                         alt="Imagem Selecionada" 
                         style={{ maxWidth: '100%' }} 
                       /> 
