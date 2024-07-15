@@ -4,13 +4,17 @@ import './Course.css';
 export default function Course({course}) {
     const title = course.name
     const rating = '?'
-    const lesson = '??'
+    const lesson = course.lessons.length
     const progress = null
     const creator = course.user.username
     const image = `https://congenial-space-invention-5jqpx47pgjj24vvp-3333.app.github.dev/thumbnail/${course.thumbnail}`
 
+    const handleRedirect = (route) => {
+        window.location.href = `courses/${route}`;
+    };
+
     return (
-      <div className='course'>
+      <div className='course' onClick={() => handleRedirect(course.id)}>
         <div className='image'>
           <img src={image} alt="Imagem Selecionada" style={{ maxWidth: '100%' }} />
           </div>

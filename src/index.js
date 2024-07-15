@@ -12,6 +12,7 @@ import Settings from './pages/Settings';
 import studyNestApi from './services/apiStudyNest';
 import SettingsCourse from './pages/Settings/Course';
 import SettingsLesson from './pages/Settings/Lesson';
+import ShowCourse from './pages/Courses/Course';
 
 const isAuthenticated = async () => {
   const token = localStorage.getItem('authToken');
@@ -36,6 +37,10 @@ const router = await isAuthenticated() ? createBrowserRouter([
   {
     path: "/courses",
     element: <Courses />,
+  },
+  {
+    path: "/courses/:courseId",
+    element: <ShowCourse />,
   },
   {
     path: "/settings",
