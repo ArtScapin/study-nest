@@ -33,6 +33,11 @@ export default function ShowCourse() {
       });
   }
 
+  const handleRedirect = (route) => {
+    if(route)
+      window.location.href = `${course.id}/lesson/${route}`;
+  };
+
   useEffect(() => {
       loadCourse()
   });
@@ -41,7 +46,7 @@ export default function ShowCourse() {
     <>
       <Sidebar></Sidebar>
       <div id='content'>
-        <Header message='Course' search={false} link='/course'></Header>
+        <Header message='Course' search={false} link='/courses'></Header>
         <div id='course-show'>
           {
             isLoading ? 
@@ -70,7 +75,8 @@ export default function ShowCourse() {
                       <label>??</label>
                       <br></br>
                       <br></br>
-                      <label>Created by @{course.user.username}</label><div id='letsgobutton'>Let's Go</div>
+                      <label>Created by @{course.user.username}</label>
+                      <div id='letsgobutton' onClick={() => handleRedirect(course.lessons[0]?.id)}>Let's Go</div>
                     </div>
                   </div>
                   <Table

@@ -1,0 +1,156 @@
+#show-lesson > .show-lesson {
+  background-color: #181d19;
+  height: fit-content;
+  width: 70%;
+  min-width: fit-content;
+  max-width: 70%;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 0 auto 20px auto;
+  padding: 10px;
+}
+
+#show-lesson > .show-lesson > .video {
+  width: 100%; /* Ou a largura desejada */
+  height: 0;
+  padding-bottom: 56%; /* Proporção de 16:9 */
+  position: relative;
+  overflow: hidden; /* Garante que a imagem não ultrapasse as bordas */
+  border-radius: 20px;
+}
+
+#show-lesson > .show-lesson > .video > .yt-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Mantém a imagem dentro do contêiner */
+  background-color: black; /* Cor de fundo para as bordas pretas */
+}
+
+#show-lesson > .show-lesson > .video > .yt-player iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+#show-lesson > .show-lesson > .infos {
+  overflow: hidden;
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#show-lesson > .show-lesson > .infos > label {
+  width: 90%;
+  font-size: 16px;
+  color: white;
+}
+
+#show-lesson > .show-lesson > .infos > label:first-of-type {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#show-lesson > .comments-section {
+  background-color: #181d19;
+  height: fit-content;
+  width: 70%;
+  min-width: fit-content;
+  max-width: 70%;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+#show-lesson > .comments-section > h3 {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+#show-lesson > .comments-section > .comment-input {
+  display: flex;
+  align-items: center;
+}
+
+#show-lesson > .comments-section > .comment-input input {
+  flex-grow: 1;
+  padding: 10px;
+  background-color: #242925;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#show-lesson > .comments-section > .comment-input button {
+  padding: 10px 20px;
+  background-color: #1b6040;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#show-lesson > .comments-section > .comment-input button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+  background-color: #00351b;
+}
+
+#show-lesson > .comments-list {
+  height: fit-content;
+  width: 70%;
+  min-width: fit-content;
+  max-width: 70%;
+  text-align: left;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 20px auto;
+  padding: 10px;
+  color: white;
+}
+
+#show-lesson > .comments-list > .comment {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#show-lesson > .comments-list > .comment > .avatar-comment {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #242925;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+#show-lesson > .comments-list > .comment > .body-comment {
+  font-size: 16px;
+  display: block;
+}
+
+#show-lesson > .comments-list > .comment > .body-comment > div:first-of-type {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* 
+
+.comment span {
+  display: inline-block;
+} */
