@@ -8,6 +8,7 @@ import studyNestApi from '../../services/apiStudyNest';
 
 export default function Courses() {
   const [courses, setCourses] = useState(null);
+  const [search, setSearch] = useState('');
   const [isLoading, setLoading] = useState(true); 
 
   const loadCourses = () => {
@@ -38,12 +39,12 @@ export default function Courses() {
     <>
       <Sidebar></Sidebar>
       <div id='content'>
-        <Header message='Courses'></Header>
+        <Header message='Courses' search={{set:setSearch, value:search}}></Header>
         <div id='main'>
           {
             isLoading ? 
               <div>Loading</div> :
-              courses.map((course) => <Course key={course.id} course={course}></Course>)
+              courses.filter((course) => course.name.toLowerCase().includes(search.toLowerCase())).map((course) => <Course key={course.id} course={course}></Course>)
           }
         </div>
       </div>

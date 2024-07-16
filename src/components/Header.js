@@ -24,7 +24,7 @@ export default function Header({message, search = true, link = null}) {
               </path>
             </g>
           </svg>
-          <input placeholder="Search..." type="search" />
+          <input placeholder="Search..." type="search" value={search.value} onChange={(e) => search.set(e.target.value)} />
         </div>
       }
     </div>
