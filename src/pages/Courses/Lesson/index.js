@@ -28,8 +28,8 @@ export default function ShowLesson() {
         }            
       )
       .then(({data}) => {
-        setLoading(false)
         setLesson(data)
+        setLoading(false)
         setComments(data.comments)
       })
       .catch(error => {
@@ -50,7 +50,6 @@ export default function ShowLesson() {
         }            
       )
       .then(({data}) => {
-        setLoading(false)
         setCourse(data)
       })
       .catch(error => {
@@ -96,7 +95,7 @@ export default function ShowLesson() {
         <div id='show-lesson'>
           {
             isLoading ? 
-              <div>Loading</div> :
+              <div className='loading'></div> :
               !lesson ?
                 <div>Fail</div> :
                 <>
@@ -111,11 +110,11 @@ export default function ShowLesson() {
                       <br></br>
                     </div>
                   </div>
-                  <Table
+                  {course && <Table
                     title='Lessons' 
                     content={course.lessons}
                     baseURL={'.'}
-                  />
+                  />}
                   <div className='comments-section'>
                     <h3>Comments</h3>
                     <div className='comment-input'>

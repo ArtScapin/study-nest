@@ -199,7 +199,7 @@ export default function SettingsCourse() {
         <div id='course-settings'>
           {
             isLoading ? 
-              <div>Loading</div> :
+              <div className='loading'></div> :
               !course ?
                 <div>Fail</div> :
                 <>

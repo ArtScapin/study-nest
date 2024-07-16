@@ -50,7 +50,7 @@ export default function ShowCourse() {
         <div id='course-show'>
           {
             isLoading ? 
-              <div>Loading</div> :
+              <div className='loading'></div> :
               !course ?
                 <div>Fail</div> :
                 <>

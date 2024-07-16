@@ -106,7 +106,7 @@ export default function SettingsLesson() {
         <div id='lesson-settings'>
           {
             isLoading ? 
-              <div>Loading</div> :
+              <div className='loading'></div> :
               !lesson ?
                 <div>Fail</div> :
                 <>

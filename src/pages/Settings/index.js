@@ -105,7 +105,7 @@ export default function Settings() {
         <div id='settings'>
           {
             isLoading ? 
-              <div>Loading</div> :
+              <div className='loading'></div> :
               !courses ?
                 <div>Fail</div> :
                 <>

@@ -43,7 +43,7 @@ export default function Courses() {
         <div id='main'>
           {
             isLoading ? 
-              <div>Loading</div> :
+              <div className='loading'></div> :
               courses.filter((course) => course.name.toLowerCase().includes(search.toLowerCase())).map((course) => <Course key={course.id} course={course}></Course>)
           }
         </div>
